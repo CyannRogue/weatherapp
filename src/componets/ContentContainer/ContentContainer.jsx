@@ -11,7 +11,7 @@ const ContentContainer = () => {
           <p className='text-2xl'>26 °</p>
         </div>
       </div>
-      <div className=' flex px-10 text-[10px] items-center'>
+      <div className=' flex lg:px-10 text-[10px] items-center'>
         <div className='flex flex-col items-center px-3'>
           <p className='pb-2'>Wind</p>
           <p>12 k/h</p>
