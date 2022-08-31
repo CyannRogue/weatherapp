@@ -13,18 +13,11 @@ const WeekWeather = () => {
           <h1 className='text-2xl mt-5'>
             Next <span className='font-bold'>7 days</span>
           </h1>
-          <ul className=' overflow-y-scroll'>
-            <ContentContainer />
-            <ContentContainer />
-            <ContentContainer />
-            <ContentContainer />
-            <ContentContainer />
-            <ContentContainer />
-          </ul>
+          <ul className=' overflow-y-scroll'></ul>
 
           {/* Modal body */}
           <div className='modal-action fixed'>
-            <label for='my-modal' className='modal-button'>
+            <label htmlFor='my-modal' className='modal-button'>
               <CloseButton />
             </label>
           </div>

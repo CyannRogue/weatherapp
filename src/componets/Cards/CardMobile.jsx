@@ -1,5 +1,4 @@
 import WeatherIcon from "../IconBD/WeatherIcon";
-import path from "../IconBD/iconPath-BD";
 
 const CardDesktop = () => {
   return (
@@ -14,7 +13,8 @@ const CardDesktop = () => {
         <p className='text-sm'>Feels Like</p>
         <div className='flex items-center'>
           {/* Icon */}
-          <WeatherIcon path={path} />
+
+          {/* <WeatherIcon path={path} /> */}
           <p className='text-sm ml-2'>26 °</p>
         </div>
       </div>
