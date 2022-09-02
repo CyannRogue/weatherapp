@@ -1,25 +1,19 @@
-import React from "react";
-// import GooglePlacesAutocomplete from "react-google-places-autocomplete";
-
-const SearchElement = () => {
-  const [value, setValue] = useState(null);
+const SearchElement = ({ onChange, onSearch, value, city, isActivated }) => {
   return (
-    <div className='form-control mt-6'>
-      {/* <GooglePlacesAutocomplete
-        selectProps={{
-          value,
-          onChange: setValue,
-        }}
-      /> */}
+    <div className='form-control mt-6 drop-shadow-md'>
       <div className='input-group '>
         <input
           type='text'
+          value={value}
+          onChange={onChange}
           placeholder='Search City...'
           className='input input-bordered opacity-50 hover:opacity-100'
-          ref={inputRef}
         />
 
-        <button className='btn btn-square  bg-[#4C4C4C] border-[#4C4C4C]'>
+        <button
+          onClick={() => onSearch(value)}
+          className='btn btn-square  bg-[#4C4C4C] border-[#4C4C4C]'
+        >
           <svg
             xmlns='http://www.w3.org/2000/svg'
             className='h-6 w-6'
@@ -36,6 +30,22 @@ const SearchElement = () => {
           </svg>
         </button>
       </div>
+
+      <ul
+        tabindex='0'
+        className={`drop-shadow-md dropdown-content menu p-2 shadow bg-base-100 rounded-box max-w-[280px] max-h-52 overflow-auto ${
+          isActivated ? "block" : "hidden"
+        }`}
+      >
+        {city &&
+          city.slice(0, 10).map((item, index) => (
+            <li key={item.id}>
+              <a
+                onClick={() => onSearch(item.name)}
+              >{`${item.name}, ${item.region}`}</a>
+            </li>
+          ))}
+      </ul>
     </div>
   );
 };

@@ -13,7 +13,9 @@ import { backGroundDB } from "../componets/utils/backGroundDB.js";
 // context
 const App = () => {
   const url = "https://weather-googlegeoloapi-backend.herokuapp.com/weather/";
-  const [searchText, setSearchText] = useState();
+  const [value, setValue] = useState("");
+  const [searchText, setSearchText] = useState("empty");
+  const [isActivated, setIsActivated] = useState(false);
   const { data, loading, hasError, errorMessage } = useFetch(url, searchText);
 
   const convertTime = epochTime => {
@@ -24,14 +26,38 @@ const App = () => {
     return `${hours}:${minutes.slice(-2)}`;
   };
 
-  /* A ternary operator that is checking if the data is true or false. If it is true it will return the
-  background image from the backGroundDB.js file. If it is false it will return the default
-  background image. */
+  //SearchElement
+
+  const [city, setCity] = useState(null);
+  const fetchCity = async city => {
+    if (city) {
+      const response = await fetch(
+        `https://weather-googlegeoloapi-backend.herokuapp.com/search/${city}`
+      );
+      const json = await response.json();
+
+      setCity(json);
+    }
+  };
+
+  const onChange = event => {
+    setValue(event.target.value);
+    if (event.target.value.length > 2) {
+      setIsActivated(true);
+      fetchCity(event.target.value);
+    } else {
+      setIsActivated(false);
+    }
+  };
+
+  const onSearch = searchTerm => {
+    setValue(searchTerm);
+    setSearchText(searchTerm);
+  };
+
   const backgroundImage = data
     ? backGroundDB[data.current.condition.icon.slice(-7, -4)]
     : "bg-[url(../../assets/Images/Default.png)]";
-
-  console.log(data);
 
   if (loading)
     return (
@@ -41,11 +67,11 @@ const App = () => {
     );
   if (hasError)
     return (
-      <div class='alert alert-error shadow-lg'>
+      <div className='alert alert-error shadow-lg'>
         <div>
           <svg
             xmlns='http://www.w3.org/2000/svg'
-            class='stroke-current flex-shrink-0 h-6 w-6'
+            className='stroke-current flex-shrink-0 h-6 w-6'
             fill='none'
             viewBox='0 0 24 24'
           >
@@ -108,7 +134,13 @@ const App = () => {
                 className={`flex bg-no-repeat justify-center bg-contain bg-center h-[80%] ${backgroundImage}`}
               >
                 {/* Search input and Button */}
-                {/* <SearchElement /> */}
+                <SearchElement
+                  isActivated={isActivated}
+                  onChange={onChange}
+                  onSearch={onSearch}
+                  city={city}
+                  value={value}
+                />
               </form>
             </section>
             {/* Second Section */}
@@ -134,7 +166,7 @@ const App = () => {
             {/* Third Section */}
             <section className='flex-1 hidden lg:flex flex-col my-5 '>
               <h1 className='text-2xl'>
-                Next <span className='font-bold'>3 days</span>
+                Next <span className='font-bold'>forecast</span>
               </h1>
 
               <ul className=' overflow-y-scroll'>
@@ -160,7 +192,16 @@ const App = () => {
               Hour<span className='font-bold'>ly</span>
             </h1>
             <ul className='flex overflow-x-auto h-[70%] items-center'>
-              <HourCard />
+              {data &&
+                data.forecast.forecastday[0].hour.map((item, index) => (
+                  <HourCard
+                    currentTime={convertTime(data.location.localtime_epoch)}
+                    key={index}
+                    image={item.condition.icon}
+                    temp_c={item.temp_c}
+                    time={item.time}
+                  />
+                ))}
             </ul>
           </section>
         </div>

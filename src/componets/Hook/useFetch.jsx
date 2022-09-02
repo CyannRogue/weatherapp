@@ -10,7 +10,7 @@ export const useFetch = (url, searchText) => {
   useEffect(() => {
     const getLocation = async () => {
       const response = await fetch(
-        "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBhiNidVw6HYUxfqYIGVlG6t0ihdIMDWMs",
+        "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBsCqMQPppOetez5oQYur-Sub4MNfmEuwQ",
         {
           method: "POST",
           headers: {
@@ -20,18 +20,20 @@ export const useFetch = (url, searchText) => {
         }
       );
       if (!response.ok) {
+        console.log(response);
+        setErrorMessage(`${response.error.status} `);
         setHasError(true);
         setloading(false);
+        /* Setting the error message to the response status text. */
       }
       const data = await response.json();
       setLocationData(data.location.lat + "," + data.location.lng);
     };
     console.log(locationData);
 
-    getLocation();
     const getWeather = async () => {
       const response = await fetch(
-        !searchText ? `${url}${locationData}` : `${url}${searchText}`
+        searchText ? `${url}${locationData}` : `${url}${searchText}`
       );
       const data = await response.json();
       // check if data contains error
@@ -41,10 +43,12 @@ export const useFetch = (url, searchText) => {
         setloading(false);
       } else {
         setdata(data);
+
         setloading(false);
       }
     };
+    getLocation();
     getWeather();
-  }, [searchText, locationData]);
+  }, []);
   return { data, loading, hasError, errorMessage };
 };
