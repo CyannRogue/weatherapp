@@ -32,7 +32,7 @@ const SearchElement = ({ onChange, onSearch, value, city, isActivated }) => {
       </div>
 
       <ul
-        tabindex='0'
+        tabIndex='0'
         className={`drop-shadow-md dropdown-content menu p-2 shadow bg-base-100 rounded-box max-w-[280px] max-h-52 overflow-auto ${
           isActivated ? "block" : "hidden"
         }`}
