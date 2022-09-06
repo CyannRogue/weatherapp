@@ -291,13 +291,13 @@ const App = () => {
               <input type='checkbox' />
               <img
                 onClick={switchButton}
-                src='../../public/assets/other/Today.png'
+                src='../assets/other/Today.png'
                 className=' swap-on h-7 w-7'
                 alt=''
               />
               <img
                 onClick={switchButton}
-                src='../../public/assets/other/tomorrow.png'
+                src='../assets/other/tomorrow.png'
                 className=' swap-off h-7 w-7'
                 alt=''
               />
