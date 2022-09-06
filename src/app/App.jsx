@@ -130,7 +130,7 @@ const App = () => {
 
               <header className='lg:block hidden '>
                 <h1 className='text-3xl mb-2'>
-                  {data.location.localtime.slice(10, -3) < 1
+                  {data.location.localtime.slice(10, -3) < 10
                     ? `${0}${data.location.localtime.slice(-5).trim()}`
                     : data.location.localtime.slice(-5)}
                 </h1>
