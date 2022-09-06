@@ -23,7 +23,7 @@ const ContentContainer = ({ image, day, temp, wind, rain, humidity }) => {
         <WeatherIcon imagePath={imagePath} />
         <div className='flex flex-col ml-2'>
           <h1 className=''>{dayOfWeek(day)}</h1>
-          <p className='text-2xl'>{temp}°</p>
+          <p className='text-2xl'>{temp} °C</p>
         </div>
       </div>
       <div className=' flex lg:px-10 text-[10px] items-center'>

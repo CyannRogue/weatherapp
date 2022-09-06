@@ -1,6 +1,7 @@
 import WeatherIcon from "../IconBD/WeatherIcon";
 
 const CardDesktop = ({
+  date,
   text,
   image,
   feelslike_c,
@@ -35,16 +36,16 @@ const CardDesktop = ({
     <div className=' w-96 h-[82%] p-5 rounded-xl shadow-md hover:shadow-2xl duration-500'>
       {/* Limited Details */}
       <div>
-        <h1 className='text-3xl mb-2'>Monday</h1>
+        <h1 className='text-3xl mb-2'>{dayOfWeek(date)}</h1>
         <div className=' flex flex-row'>
           <p className='text-2xl mr-5'>{text}</p>
-          <p className='text-2xl'>{temp_c} °</p>
+          <p className='text-2xl'>{temp_c} °C</p>
         </div>
         <p className='text-sm'>Feels like</p>
         <div className='flex items-center'>
           {/* Icon */}
           <WeatherIcon imagePath={imagePath} />
-          <p className='text-sm ml-2'>{feelslike_c}°</p>
+          <p className='text-sm ml-2'>{feelslike_c} °C</p>
         </div>
       </div>
       {/* Full Details */}
