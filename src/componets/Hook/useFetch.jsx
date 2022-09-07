@@ -9,23 +9,21 @@ export const useFetch = (url, searchText) => {
 
   useEffect(() => {
     const getLocation = async () => {
-      const response = await fetch(
-        "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBsCqMQPppOetez5oQYur-Sub4MNfmEuwQ",
-        {
-          method: "POST",
-          headers: {
-            Accept: "*/*",
-          },
-          body: JSON.stringify({}),
-        }
-      );
+      const response = await fetch("http://ip-api.com/json/", {
+        method: "POST",
+        headers: {
+          Accept: "*/*",
+          Host: "ip-api.com",
+        },
+        body: JSON.stringify({}),
+      });
       if (!response.ok) {
         setErrorMessage(`${response.error.status} `);
         setHasError(true);
         setloading(false);
       }
       const data = await response.json();
-      setLocationData(data.location.lat + "," + data.location.lng);
+      setLocationData(data.lat + "," + data.lon);
     };
 
     const getWeather = async () => {
